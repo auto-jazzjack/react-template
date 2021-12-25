@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 /* Sub Components */
-import SideBarNav from './SideBarNav';
+import SideBarNav from './sidebar-nav';
 
 /* Styled Components */
 const Container = styled.div`
@@ -19,24 +19,26 @@ const Container = styled.div`
 `;
 
 /* Constant Variables */
-const items = [
+const items_value = [
   { label: "홈", href: "/home" },
   { label: "게시판", href: "/board" },
   { label: "상품", href: "/product" }
 ];
 
-type Props = {
-  className :string
-}
+export type Item = {
+  label: string,
+  href: string,
+};
+
 /* Main Compoent */
-const SideBar = ({className, items} : Props) => {
+const SideBar = () => {
   /* Props */
  
   /* Renderer */
   return (
-    <Container className={ className }>
+    <Container className='SideBar' >
       SideBar
-      <SideBarNav items={ items } />
+      <SideBarNav items={ items_value } />
     </Container>
   );
 }

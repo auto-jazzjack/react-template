@@ -11,21 +11,19 @@ import styled from 'styled-components';
 const ListItem = styled.li``;
 
 type Props = {
-    className :string,
     label: string,
     href: string,
   } ;
 
 /* Main Component */
 const SideBarNavItem = ({
-    className,
     href,
     label
 } :Props) => {
 
   /* Renderer */
   return (
-    <ListItem className={ className }>
+    <ListItem className= "NaveItem">
       <NavLink to={ href }>
         { label }
       </NavLink>

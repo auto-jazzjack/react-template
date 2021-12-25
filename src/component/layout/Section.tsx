@@ -16,17 +16,16 @@ const Wrapper = styled.div`
 `;
 
 type Props ={
-  className : string
   children: Node
 }
 
 
 /* Main Compoent */
-const Section = ({className, children}:Props) => {
+const Section = ({children}:Props) => {
 
   /* Renderer */
   return (
-    <Container className={ className }>
+    <Container className= "Section">
       <Wrapper>
         { children }
       </Wrapper>

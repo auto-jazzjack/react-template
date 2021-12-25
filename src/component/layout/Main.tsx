@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 import styled, { createGlobalStyle } from 'styled-components';
 
 /* Sub Components */
-import Header from './Header';
-import Footer from './Footer';
+import Header from './header';
+import Footer from './footer';
 import SideBar from './sidebar';
-import Section from './Section';
+import Section from './section';
 
 /* Global Styled */
 const GlobalStyle = createGlobalStyle`
@@ -31,33 +31,22 @@ const Container = styled.div`
   padding-left: 240px;
 `;
 
-type Props ={
-    className : string
-    children: Node
-  }
+
 
 /* Main Compoent */
-const Main = ({className, children} : Props) => {
+const MainLayout: React.FC = ({children}) => {
   
   /* Renderer */
   return (
-    <Container className={ className }>
+    <Container className="Main">
       <GlobalStyle />
       <Header className='header'/>
       <SideBar />
-      <Section>
-        { children }
-      </Section>
+      <div>{children}</div> 
       <Footer className='footer'/>
     </Container>
   );
 }
 
-/* Main Component Settings */
-Main.propTypes = {
-  className: PropTypes.string,
-  children: PropTypes.node,
-}
-
 /* Exports */
-export default Main;
+export default MainLayout;

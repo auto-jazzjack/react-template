@@ -1,5 +1,5 @@
 import React from "react";
-import MainLayout from '@mui/material'
+import MainLayout from "../../layout/main";
 
 type Props = {
     title: string;
@@ -8,9 +8,14 @@ type Props = {
 
 export const BoardList = ({}:Props) =>{
     return (
-        <MainLayout>
 
-        </MainLayout>
+            <MainLayout>
+                {<div>
+                    hello
+
+                </div>}
+            </MainLayout>
+
         
     )
 }

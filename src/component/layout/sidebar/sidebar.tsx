@@ -1,6 +1,5 @@
 /* src/layouts/Main/SideBar/SideBar.js */
 /* React */
-import { List } from '@mui/material';
 import React from 'react';
 import './sidebar.less'
 
@@ -24,10 +23,11 @@ const Sidebar: React.FC = () => {
   return (
     <div className='Sidebar' >
       
-      <List>
-        <a href='./Board-List'>board</a>
+        <a href='./Board-List'>게시판</a>
+        
+        <a href='./Board-List'>메인화면</a>
+        
 
-      </List>
       
     </div>
   );

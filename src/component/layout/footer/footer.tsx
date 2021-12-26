@@ -1,5 +1,5 @@
 import './footer.less'
-
+import React from 'react';
 const Footer = () => {
   /* Renderer */
   return (

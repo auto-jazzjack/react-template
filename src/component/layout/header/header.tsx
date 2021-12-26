@@ -1,4 +1,5 @@
 import './header.less'
+import React from 'react';
 
 const Header = () => {
   

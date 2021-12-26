@@ -1,12 +1,12 @@
 import React from "react";
 import MainLayout from "../../layout/main";
 
-type Props = {
+/*type Props = {
     title: string;
     content: string;
-}
+}*/
 
-export const BoardList = ({}:Props) =>{
+export const BoardList = () =>{
     return (
 
             <MainLayout>

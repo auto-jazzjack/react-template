@@ -1,0 +1,37 @@
+@type    : 'module';
+@element : 'sidebar';
+
+.Sidebar {
+  position: fixed;
+  display: flex;
+  width: 60px;
+  height: 100%;
+  padding-top: 4px;
+  padding-bottom: 14px;
+  flex-direction: column;
+  background: @canvasBackground;
+
+  > div {
+
+    a {
+      display: flex;
+      justify-content: center;
+      padding: 1rem 0;
+      color: @invertedTextColor;
+
+      &.active, &:hover {
+        background: @thumbHoverBackground;
+        color: @invertedHoveredTextColor;
+      }
+    }
+
+    img {
+      // issue on Safari browser
+      align-self: flex-start;
+    }
+
+    &.reverse {
+      margin-top: auto;
+    }
+  }
+}

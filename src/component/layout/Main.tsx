@@ -1,5 +1,6 @@
 import React from 'react';
 
+import './main.less'
 import Header from './header/header';
 import Footer from './footer/footer';
 import SideBar from './sidebar/sidebar';
@@ -12,7 +13,7 @@ const MainLayout: React.FC = ({children}) => {
   
   /* Renderer */
   return (
-    <div className="Main">
+    <div className="MainLayout">
       <Header/>
       <SideBar />
       <Section>{children}</Section> 

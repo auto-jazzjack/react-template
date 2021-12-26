@@ -15,7 +15,6 @@ function App() {
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>
-       
       <Switch>
         <Route component={BoardList} {...BoardList} />
       </Switch>

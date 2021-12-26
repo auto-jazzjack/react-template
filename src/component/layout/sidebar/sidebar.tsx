@@ -18,7 +18,7 @@ export type Item = {
 /* Main Compoent */
 const Sidebar: React.FC = () => {
   /* Props */
- 
+
   /* Renderer */
   return (
     <div className='Sidebar' >

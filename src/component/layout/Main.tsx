@@ -1,9 +1,9 @@
 import React from 'react';
 
 import './main.less'
+import Insidebar from './in-sidebar/in-sidebar';
 import Header from './header/header';
 import Footer from './footer/footer';
-import SideBar from './sidebar/sidebar';
 import Section from './section/section';
 
 
@@ -15,7 +15,7 @@ const MainLayout: React.FC = ({children}) => {
   return (
     <div className="MainLayout">
       <Header/>
-      <SideBar />
+      <Insidebar />
       <Section>{children}</Section> 
       <Footer/>
     </div>

@@ -1,11 +1,10 @@
 import React from 'react';
 
 import './main.less'
-import Header from './header/header';
-import Footer from './footer/footer';
-import SideBar from './sidebar/sidebar';
-import Section from './section/section';
-
+import Insidebar from './in-sidebar/in-sidebar';
+import InHeader from './header/in-header';
+//import Header from './header/header';
+//import Section from './section/section';
 
 
 /* Main Compoent */
@@ -13,12 +12,11 @@ const MainLayout: React.FC = ({children}) => {
   
   /* Renderer */
   return (
-    <div className="MainLayout">
-      <Header/>
-      <SideBar />
-      <Section>{children}</Section> 
-      <Footer/>
-    </div>
+    <div>
+      <InHeader/>
+      <Insidebar/>
+      
+  </div>
   );
 }
 

@@ -1,5 +1,5 @@
 import React from "react";
-import MainLayout from "../../layout/main";
+import MainLayout from "../../layout/Main";
 
 /*type Props = {
     title: string;

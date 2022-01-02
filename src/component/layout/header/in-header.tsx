@@ -5,8 +5,8 @@ import React from 'react';
 const InHeader = () => {
   
   return (
-    <div className='InHeader'>
-      <Header as='h2' image='/images/icons/school.png' content='Learn More' />
+    <div className='inHeader'>
+      <Header as='h1' content='This is example'/>
 
     </div>
   );

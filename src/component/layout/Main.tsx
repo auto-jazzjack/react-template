@@ -15,9 +15,7 @@ const MainLayout: React.FC = ({children}) => {
   return (
     <div>
       <InHeader/>
-    
-      {/* <Insidebar/> */}
-      
+      {/* <Insidebar/>  */}
       <InSection children={children}/>
       <InFooter/>
   </div>

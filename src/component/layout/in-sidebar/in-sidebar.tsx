@@ -1,4 +1,5 @@
 import React from 'react';
+//import { Icon, Menu, Sidebar } from 'semantic-ui-react';
 //import {Sidebar, Menu, Icon} from 'semantic-ui-react'
 import './in-sidebar.less'
 
@@ -14,7 +15,16 @@ const Insidebar: React.FC = () => {
 
   /* Renderer */
   return (
-    <div></div>
+    <div>
+     {/*  <Sidebar inverted vertical visible width='thin' fixed='left'>
+          <Menu.Item as='a'>
+          <Icon name='home' />
+          Home
+          </Menu.Item>
+      
+      </Sidebar> */}
+    </div>
+    
     /*{ <Sidebar
       as={Menu}
       animation='overlay'

@@ -1,13 +1,8 @@
 import React from 'react';
-import {Sidebar, Menu, Icon} from 'semantic-ui-react'
+//import { Icon, Menu, Sidebar } from 'semantic-ui-react';
+//import {Sidebar, Menu, Icon} from 'semantic-ui-react'
 import './in-sidebar.less'
 
-/* Constant Variables */
-/*const items_value = [
-  { label: "홈", href: "/home" },
-  { label: "게시판", href: "/board" },
-  { label: "상품", href: "/product" }
-];*/
 
 export type Item = {
   label: string,
@@ -20,7 +15,17 @@ const Insidebar: React.FC = () => {
 
   /* Renderer */
   return (
-    <Sidebar
+    <div>
+     {/*  <Sidebar inverted vertical visible width='thin' fixed='left'>
+          <Menu.Item as='a'>
+          <Icon name='home' />
+          Home
+          </Menu.Item>
+      
+      </Sidebar> */}
+    </div>
+    
+    /*{ <Sidebar
       as={Menu}
       animation='overlay'
       icon='labeled'
@@ -41,7 +46,7 @@ const Insidebar: React.FC = () => {
         <Icon name='camera' />
         Channels
       </Menu.Item>
-    </Sidebar>
+    </Sidebar> }*/
 
   );
 }

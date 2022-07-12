@@ -1,16 +1,31 @@
 import React from "react";
 import {Header} from "semantic-ui-react";
 import {Schema} from "../common/model";
+import {Parser} from "../common/parser";
+import {getSchema} from "../../apis/schema";
+import {fetcher, initStatus} from "../../apis/apicaller";
+import {ApiStatus} from "../../apis/type";
 
 type EditorProps = {
-    schema: Schema;
-    content: string;
+    schemaURL: string
+    schema: Schema
+    content: string
 }
-
-export const Editor = ({schema, content}: EditorProps) => {
+let schema = {} as Schema
+export const Editor = ({schemaURL}: EditorProps) => {
     /* Renderer */
+    const [_, setSchemaURL] = React.useState<ApiStatus<string>>(initStatus);
+
+    React.useEffect(() => {
+        fetcher(getSchema(), setSchemaURL)
+        schema = Parser(schemaURL)
+        schema.currentField
+    })
+
+
     return (
-        <div className="Http">
+
+        <div className="Editor">
             <Header as='h1'>asdasdasd</Header>
         </div>
     )

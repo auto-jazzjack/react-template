@@ -17,7 +17,7 @@ function queryGen(schema: string, idx: Position): Schema {
     retv.currentField = new Set<String>()
 
 
-    if (schema.charAt(idx.idx++) != '{') {
+    if (schema.charAt(idx.idx++) !== '{') {
         //throw new Ex("Query should start with '{' character");
     }
 
@@ -26,17 +26,17 @@ function queryGen(schema: string, idx: Position): Schema {
         let word1 = getWord(schema, idx);
 
         //This means that we need to move into +1 depth
-        if (word1 == "{") {
+        if (word1 === "{") {
             idx.idx--;
 
-            if (before.length == 0) {
+            if (before.length === 0) {
                 //throw new RuntimeException("Invalid Query exception near " + idx.get());
             }
             //Without getting two world, we cannot determine whether it is leaf node or not.
             //So in case of +1 depth case, let's remove before world
             retv.currentField.delete(before);
             retv.nextField.set(before, queryGen(schema, idx));
-        } else if (word1 == "}") {
+        } else if (word1 === "}") {
             break;
         } else {
             //leaf node

@@ -1,16 +1,16 @@
 import React from "react";
-import {Header} from "semantic-ui-react";
 import {Schema} from "../common/model";
 import {Parser} from "../common/parser";
 import {getSchema} from "../../apis/schema";
 import {fetcher, initStatus} from "../../apis/apicaller";
 import {ApiStatus} from "../../apis/type";
+import {Form, TextArea} from "semantic-ui-react";
 
 type EditorProps = {
     schemaURL: string
-    schema: Schema
     content: string
 }
+
 let schema = {} as Schema
 export const Editor = ({schemaURL}: EditorProps) => {
     /* Renderer */
@@ -19,14 +19,19 @@ export const Editor = ({schemaURL}: EditorProps) => {
     React.useEffect(() => {
         fetcher(getSchema(), setSchemaURL)
         schema = Parser(schemaURL)
-        schema.currentField
+        console.log(schema)
     })
 
 
     return (
 
         <div className="Editor">
-            <Header as='h1'>asdasdasd</Header>
+            <Form>
+
+                <TextArea placeholder='Body' style={{minHeight: 200, maxHeight:200}}/>
+                <TextArea autocomplete="on" placeholder='Query' style={{minHeight: 200, maxHeight:200}}/>
+
+            </Form>
         </div>
     )
 }

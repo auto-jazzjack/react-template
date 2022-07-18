@@ -10,6 +10,44 @@ export const Parser = (body: string): Schema => {
     return queryGen(body, start)
 }
 
+export function findContext(content: string): string[] {
+    let retv = [] as string[]
+    let start = {idx: 0} as Position
+    findContext0(content, start, retv)
+    return retv
+}
+
+export function findContext0(content: string, start: Position, stack: string[]) {
+
+    if (content.charAt(start.idx++) !== '{') {
+        //throw new Ex("Query should start with '{' character");
+    }
+
+    let before = "";
+    while (content.length > start.idx) {
+        let word1 = getWord(content, start);
+
+        //This means that we need to move into +1 depth
+        if (word1 === "{") {
+            start.idx--;
+            //Without getting two world, we cannot determine whether it is leaf node or not.
+            //So in case of +1 depth case, let's remove before world
+            //retv.currentField.delete(before);
+            //retv.nextField.set(before, );
+            stack.push(before)
+            findContext0(content, start, stack)
+        } else if (word1 === "}") {
+            stack.pop()
+            break;
+        } else {
+            //leaf node
+            //retv.currentField.add(word1);
+            //stack.push(word1)
+            before = word1;
+        }
+
+    }
+}
 
 function queryGen(schema: string, idx: Position): Schema {
     let retv = {} as Schema;
@@ -17,7 +55,7 @@ function queryGen(schema: string, idx: Position): Schema {
     retv.currentField = new Set<String>()
 
 
-    if (schema.charAt(idx.idx++) != '{') {
+    if (schema.charAt(idx.idx++) !== '{') {
         //throw new Ex("Query should start with '{' character");
     }
 
@@ -26,17 +64,17 @@ function queryGen(schema: string, idx: Position): Schema {
         let word1 = getWord(schema, idx);
 
         //This means that we need to move into +1 depth
-        if (word1 == "{") {
+        if (word1 === "{") {
             idx.idx--;
 
-            if (before.length == 0) {
+            if (before.length === 0) {
                 //throw new RuntimeException("Invalid Query exception near " + idx.get());
             }
             //Without getting two world, we cannot determine whether it is leaf node or not.
             //So in case of +1 depth case, let's remove before world
             retv.currentField.delete(before);
             retv.nextField.set(before, queryGen(schema, idx));
-        } else if (word1 == "}") {
+        } else if (word1 === "}") {
             break;
         } else {
             //leaf node

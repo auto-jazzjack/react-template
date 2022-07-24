@@ -7,6 +7,7 @@ import {ApiStatus} from "../../apis/type";*/
 import {Form, TextArea} from "semantic-ui-react";
 import {TextAreaProps} from "semantic-ui-react/dist/commonjs/addons/TextArea/TextArea";
 import {findContext} from "../common/parser";
+import {AutoSuggest} from "../common/autosuggest";
 
 type EditorProps = {
     schemaURL: string
@@ -17,7 +18,6 @@ type EditorProps = {
 let mockSchema = {} as Schema | null
 
 export function init0() {
-
 
     mockSchema = {
         currentField: new Set<String>(["aa", "bb", "cc", "dd"]),
@@ -37,6 +37,8 @@ export const Editor = ({schemaURL}: EditorProps) => {
 
     init0()
 
+    const [_, _] = React.useState<string[]>([]);
+
     /* Renderer */
     /*const [_, setSchemaURL] = React.useState<ApiStatus<string>>(initStatus);
 
@@ -52,6 +54,7 @@ export const Editor = ({schemaURL}: EditorProps) => {
         <div className="Editor">
             <Form>
                 <TextArea placeholder='Body' style={{minHeight: 200, maxHeight: 200}}/>
+                <AutoSuggest/>
                 <TextArea onChange={suggest}
                           placeholder='Query'
                           style={{minHeight: 200, maxHeight: 200}}/>

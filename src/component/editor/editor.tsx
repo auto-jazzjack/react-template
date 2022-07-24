@@ -18,6 +18,7 @@ let mockSchema = {} as Schema | null
 
 export function init0() {
 
+
     mockSchema = {
         currentField: new Set<String>(["aa", "bb", "cc", "dd"]),
         nextField: new Map<String, Schema>([
@@ -35,6 +36,7 @@ export function init0() {
 export const Editor = ({schemaURL}: EditorProps) => {
 
     init0()
+
     /* Renderer */
     /*const [_, setSchemaURL] = React.useState<ApiStatus<string>>(initStatus);
 
@@ -44,7 +46,6 @@ export const Editor = ({schemaURL}: EditorProps) => {
         console.log(schema)
     })
     */
-
 
     return (
 
@@ -59,10 +60,9 @@ export const Editor = ({schemaURL}: EditorProps) => {
     )
 }
 
-
 function suggest(event: React.ChangeEvent<HTMLTextAreaElement>, data: TextAreaProps) {
     let v = data.value as string
-    let contexts = findContext(v);
+    let contexts = findContext(v, event.target.selectionEnd);
 
     let temp = mockSchema
     for (let i = 0; i < contexts.length; i++) {

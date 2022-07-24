@@ -1,11 +1,13 @@
 import React from "react";
 
-export type SuggestProps  = {
-    names: string[]
+export type SuggestProps = {
+    names: String[]
 }
-export const AutoSuggest = ({}: SuggestProps) => {
+export const AutoSuggest = ({names}: SuggestProps) => {
 
-    return <div>
-
-    </div>
+    return (<div>
+        {names.map((week, index) => (
+            <span key={index}>{week}</span>
+        ))}
+    </div>)
 }

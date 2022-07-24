@@ -7,6 +7,7 @@ import {ApiStatus} from "../../apis/type";*/
 import {Form, TextArea} from "semantic-ui-react";
 import {TextAreaProps} from "semantic-ui-react/dist/commonjs/addons/TextArea/TextArea";
 import {findContext} from "../common/parser";
+import {AutoSuggest} from "../common/autosuggest";
 
 type EditorProps = {
     schemaURL: string
@@ -35,6 +36,9 @@ export function init0() {
 export const Editor = ({schemaURL}: EditorProps) => {
 
     init0()
+
+    const [suggests, setSuggests] = React.useState<String[]>([]);
+
     /* Renderer */
     /*const [_, setSchemaURL] = React.useState<ApiStatus<string>>(initStatus);
 
@@ -45,13 +49,18 @@ export const Editor = ({schemaURL}: EditorProps) => {
     })
     */
 
-
     return (
 
         <div className="Editor">
             <Form>
                 <TextArea placeholder='Body' style={{minHeight: 200, maxHeight: 200}}/>
-                <TextArea onChange={suggest}
+                <AutoSuggest names={suggests}/>
+                <TextArea onChange={(event, data) => {
+                    let suggested = suggest(event, data);
+                    setSuggests(suggested)
+                    console.log(suggested)
+
+                }}
                           placeholder='Query'
                           style={{minHeight: 200, maxHeight: 200}}/>
             </Form>
@@ -59,18 +68,36 @@ export const Editor = ({schemaURL}: EditorProps) => {
     )
 }
 
-
-function suggest(event: React.ChangeEvent<HTMLTextAreaElement>, data: TextAreaProps) {
+function suggest(event: React.ChangeEvent<HTMLTextAreaElement>, data: TextAreaProps): String[] {
     let v = data.value as string
-    let contexts = findContext(v);
+    let contexts = findContext(v, event.target.selectionEnd);
 
-    let temp = mockSchema
+    let pos = mockSchema
     for (let i = 0; i < contexts.length; i++) {
-        if (temp?.nextField.has(contexts[i])) {
-            temp = temp.nextField.get(contexts[i]) ?? null
-            console.log(temp)
+        if (pos?.nextField.has(contexts[i])) {
+            pos = pos.nextField.get(contexts[i]) ?? null
+            console.log(pos)
         }
     }
 
-    console.log(temp?.nextField)
+    console.log(pos?.nextField)
+    let temp = new Set<String>()
+
+    if (pos?.nextField !== undefined) {
+        pos?.nextField.forEach((v, k) => {
+            temp.add(k)
+        })
+    }
+    if (pos?.currentField !== undefined) {
+        pos?.currentField.forEach((v) => {
+            temp.add(v)
+        })
+    }
+
+    let retv = [] as String[]
+    temp.forEach(i => {
+        retv.push(i)
+    })
+
+    return retv
 }

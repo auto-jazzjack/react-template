@@ -1,25 +1,33 @@
 import React from "react";
 import {Dropdown, DropdownItemProps} from "semantic-ui-react";
 import {DropdownProps} from "semantic-ui-react/dist/commonjs/modules/Dropdown/Dropdown";
+import {Pair} from "./model";
 
 export type SuggestProps = {
     names: String[]
-    onClick: (event: React.SyntheticEvent<HTMLElement>, data: DropdownProps) => void
+    indent: number
+    consumer: (data: Pair<String/*Key*/, number/*number of indent*/>) => void
 }
-export const AutoSuggest = ({names, onClick}: SuggestProps) => {
+
+export const AutoSuggest = ({names, indent, consumer}: SuggestProps) => {
 
     return (<div>
         <Dropdown
             search
             searchInput={{autoFocus: true}}
             selection
-            options={names.map((value) => ({
-                key: value,
-                value: value as string,
-                content: value
+            options={names.map((entity) => ({
+                key: entity as string,
+                value: entity as string,
+                content: entity
             } as DropdownItemProps))}
             onChange={(event: React.SyntheticEvent<HTMLElement>, data: DropdownProps) => {
-                onClick.call(this, event, data)
+
+                consumer.call(this, {
+                    key: data.value as string,
+                    value: indent
+                })
+
             }}>
         </Dropdown>
     </div>)

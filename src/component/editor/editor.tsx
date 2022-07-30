@@ -1,5 +1,5 @@
 import React from "react";
-import {Schema} from "../common/model";
+import {Pair, Schema} from "../common/model";
 /*import {Parser} from "../common/parser";
 import {getSchema} from "../../apis/schema";
 import {fetcher, initStatus} from "../../apis/apicaller";
@@ -36,8 +36,12 @@ export const Editor = ({schemaURL}: EditorProps) => {
 
     init0()
 
-    const [suggests, setSuggests] = React.useState<String[]>([]);
+    const [suggests, setSuggests] = React.useState<Pair<number, String[]>>({
+        key: 0,
+        value: [] as String[]
+    });
     const [content, setContent] = React.useState<String>("");
+    const [position, setPosition] = React.useState<number>(0);
 
     /* Renderer */
     /*const [_, setSchemaURL] = React.useState<ApiStatus<string>>(initStatus);
@@ -55,32 +59,47 @@ export const Editor = ({schemaURL}: EditorProps) => {
         <div className="Editor">
             <Form>
                 <TextArea placeholder='Body' style={{minHeight: 200, maxHeight: 200}}/>
-                <AutoSuggest names={suggests} onClick={(event, data) => {
-                    setContent(content + "\n" + data.value)
-                    console.log(content)
+                <AutoSuggest indent={suggests.key} names={suggests.value} consumer={(data) => {
+                    console.log(data)
+                    let prefix = content.substring(0, position) + "\n" + repeatedTab(data.value) + data.key
+                    setContent(prefix + content.substring(position + 1, content.length))
+                    setPosition(prefix.length)
                 }}/>
-                <TextArea onChange={(event, data) => {
-                    let suggested = suggest(event, data);
-                    setSuggests(suggested)
-                    setContent(data.value as string)
-                }}
-                          placeholder='Query'
-                          style={{minHeight: 200, maxHeight: 200}}
+                <TextArea
+                    value={content as string}
+                    onChange={(event, data) => {
+                        setPosition(event.target.selectionEnd)
+
+                        let suggested = suggest(position, data);
+                        setSuggests(suggested)
+                        setContent(data.value as string)
+                    }}
+                    placeholder='Query'
+                    style={{minHeight: 200, maxHeight: 200}}
                 />
             </Form>
         </div>
     )
 }
 
+function repeatedTab(size: number): string {
+    let retv = ""
+    for (let i = 0; i < size; i++) {
+        retv += "\t"
+    }
+    return retv
+}
 
-function suggest(event: React.ChangeEvent<HTMLTextAreaElement>, data: TextAreaProps): String[] {
+function suggest(position: number, data: TextAreaProps): Pair<number, String[]> {
     let v = data.value as string
-    let contexts = findContext(v, event.target.selectionEnd);
+    let contexts = findContext(v, position);
 
     let pos = mockSchema
+    let indent = 0
     for (let i = 0; i < contexts.length; i++) {
         if (pos?.nextField.has(contexts[i])) {
             pos = pos.nextField.get(contexts[i]) ?? null
+            indent++
         }
     }
 
@@ -102,5 +121,8 @@ function suggest(event: React.ChangeEvent<HTMLTextAreaElement>, data: TextAreaPr
         retv.push(i)
     })
 
-    return retv
+    return {
+        key: indent,
+        value: retv
+    } as Pair<number, String[]>
 }

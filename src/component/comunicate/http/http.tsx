@@ -11,7 +11,7 @@ export const Http = () => {
     /* Renderer */
     return (
         <div className="Http">
-            <Editor content="" schemaURL={""}/>
+            <Editor schemaURL={""}/>
             <Header as='h1'>asdasdasd</Header>
         </div>
     )

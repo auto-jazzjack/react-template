@@ -23,8 +23,10 @@ export function findContext0(content: string, start: Position, last: number, sta
     }
 
     let before = "";
-    while (content.length >= last && content.length > start.idx) {
-        let word1 = getWord(content, start);
+    console.log("i am last" + last + " " + start.idx)
+    while ((start.idx <= last) && (content.length > start.idx)) {
+        let word1 = getWord(content, start, last);
+        console.log("res" + word1)
 
         //This means that we need to move into +1 depth
         if (word1 === "{") {
@@ -53,7 +55,7 @@ function queryGen(schema: string, idx: Position): Schema {
 
     let before = "";
     while (schema.length > idx.idx) {
-        let word1 = getWord(schema, idx);
+        let word1 = getWord(schema, idx, schema.length);
 
         //This means that we need to move into +1 depth
         if (word1 === "{") {
@@ -68,6 +70,8 @@ function queryGen(schema: string, idx: Position): Schema {
             retv.nextField.set(before, queryGen(schema, idx));
         } else if (word1 === "}") {
             break;
+        } else if (word1 === undefined) {
+            break
         } else {
             //leaf node
             retv.currentField.add(word1);
@@ -81,11 +85,11 @@ function queryGen(schema: string, idx: Position): Schema {
 
 //This me method get string and index.
 //Return the first world exist between idx to next whitespace.
-function getWord(list: string, idx: Position): string {
+function getWord(content: string, start: Position, last: number): string {
     let retv = ""
-    skipBlank(list, idx);
-    while (list.length > idx.idx) {
-        let c = list.charAt(idx.idx++);
+    skipBlank(content, start, last);
+    while ((start.idx <= last) && (content.length > start.idx)) {
+        let c = content.charAt(start.idx++);
         switch (c) {
             case '\n':
             case '\t':
@@ -94,7 +98,7 @@ function getWord(list: string, idx: Position): string {
             case '{':
             case '}':
                 if (retv.length > 0) {
-                    idx.idx--;
+                    start.idx--;
                     return retv;
                 } else {
                     return c;
@@ -108,15 +112,15 @@ function getWord(list: string, idx: Position): string {
 }
 
 //helper to skip blank
-function skipBlank(list: string, idx: Position) {
-    while (list.length > idx.idx) {
-        switch (list.charAt(idx.idx++)) {
+function skipBlank(content: string, start: Position, last: number) {
+    while ((start.idx <= last) && (content.length > start.idx)) {
+        switch (content.charAt(start.idx++)) {
             case '\n':
             case '\t':
             case ' ':
                 break;
             default:
-                idx.idx--;
+                start.idx--;
                 return;
         }
     }

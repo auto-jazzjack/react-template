@@ -11,7 +11,6 @@ import {AutoSuggest} from "../common/autosuggest";
 
 type EditorProps = {
     schemaURL: string
-    content: string
 }
 
 //let schema = {} as Schema | null
@@ -38,6 +37,7 @@ export const Editor = ({schemaURL}: EditorProps) => {
     init0()
 
     const [suggests, setSuggests] = React.useState<String[]>([]);
+    const [content, setContent] = React.useState<String>("");
 
     /* Renderer */
     /*const [_, setSchemaURL] = React.useState<ApiStatus<string>>(initStatus);

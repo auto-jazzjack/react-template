@@ -49,17 +49,20 @@ export const Editor = ({schemaURL}: EditorProps) => {
     })
     */
 
+
     return (
 
         <div className="Editor">
             <Form>
                 <TextArea placeholder='Body' style={{minHeight: 200, maxHeight: 200}}/>
-                <AutoSuggest names={suggests} onClick={(event,data)=>{
-
+                <AutoSuggest names={suggests} onClick={(event, data) => {
+                    setContent(content + "\n" + data.value)
+                    console.log(content)
                 }}/>
                 <TextArea onChange={(event, data) => {
                     let suggested = suggest(event, data);
                     setSuggests(suggested)
+                    setContent(data.value as string)
                 }}
                           placeholder='Query'
                           style={{minHeight: 200, maxHeight: 200}}
@@ -68,6 +71,7 @@ export const Editor = ({schemaURL}: EditorProps) => {
         </div>
     )
 }
+
 
 function suggest(event: React.ChangeEvent<HTMLTextAreaElement>, data: TextAreaProps): String[] {
     let v = data.value as string

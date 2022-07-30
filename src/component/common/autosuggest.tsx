@@ -4,23 +4,23 @@ import {DropdownProps} from "semantic-ui-react/dist/commonjs/modules/Dropdown/Dr
 
 export type SuggestProps = {
     names: String[]
-    onClick?: (event: React.KeyboardEvent<HTMLElement>, data: DropdownProps) => void
+    onClick: (event: React.SyntheticEvent<HTMLElement>, data: DropdownProps) => void
 }
 export const AutoSuggest = ({names, onClick}: SuggestProps) => {
 
-
     return (<div>
-        <Dropdown options={names.map((value) => ({
-            key: value,
-            content: value
-        } as DropdownItemProps))}
-                  onClick={(event: React.KeyboardEvent<HTMLElement>, data: DropdownProps) => {
-                      if (onClick !== null && onClick !== undefined) {
-                          onClick.call(this, event, data)
-                      }
-
-                  }
-                  }>
+        <Dropdown
+            search
+            searchInput={{autoFocus: true}}
+            selection
+            options={names.map((value) => ({
+                key: value,
+                value: value as string,
+                content: value
+            } as DropdownItemProps))}
+            onChange={(event: React.SyntheticEvent<HTMLElement>, data: DropdownProps) => {
+                onClick.call(this, event, data)
+            }}>
         </Dropdown>
     </div>)
 }

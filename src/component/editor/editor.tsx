@@ -54,7 +54,9 @@ export const Editor = ({schemaURL}: EditorProps) => {
         <div className="Editor">
             <Form>
                 <TextArea placeholder='Body' style={{minHeight: 200, maxHeight: 200}}/>
-                <AutoSuggest names={suggests}/>
+                <AutoSuggest names={suggests} onClick={(event,data)=>{
+
+                }}/>
                 <TextArea onChange={(event, data) => {
                     let suggested = suggest(event, data);
                     setSuggests(suggested)

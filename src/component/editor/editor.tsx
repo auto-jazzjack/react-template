@@ -58,11 +58,10 @@ export const Editor = ({schemaURL}: EditorProps) => {
                 <TextArea onChange={(event, data) => {
                     let suggested = suggest(event, data);
                     setSuggests(suggested)
-                    console.log(suggested)
-
                 }}
                           placeholder='Query'
-                          style={{minHeight: 200, maxHeight: 200}}/>
+                          style={{minHeight: 200, maxHeight: 200}}
+                />
             </Form>
         </div>
     )
@@ -76,11 +75,9 @@ function suggest(event: React.ChangeEvent<HTMLTextAreaElement>, data: TextAreaPr
     for (let i = 0; i < contexts.length; i++) {
         if (pos?.nextField.has(contexts[i])) {
             pos = pos.nextField.get(contexts[i]) ?? null
-            console.log(pos)
         }
     }
 
-    console.log(pos?.nextField)
     let temp = new Set<String>()
 
     if (pos?.nextField !== undefined) {

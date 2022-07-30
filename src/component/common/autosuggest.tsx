@@ -1,4 +1,5 @@
 import React from "react";
+import {Dropdown, DropdownItemProps} from "semantic-ui-react";
 
 export type SuggestProps = {
     names: String[]
@@ -6,8 +7,13 @@ export type SuggestProps = {
 export const AutoSuggest = ({names}: SuggestProps) => {
 
     return (<div>
-        {names.map((week, index) => (
-            <span key={index}>{week}</span>
-        ))}
+        <Dropdown options={
+            names.map((value) => ({
+                key: value,
+                content: value
+            } as DropdownItemProps))
+        }>
+        </Dropdown>
     </div>)
 }
+

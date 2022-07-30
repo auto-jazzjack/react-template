@@ -23,10 +23,8 @@ export function findContext0(content: string, start: Position, last: number, sta
     }
 
     let before = "";
-    console.log("i am last" + last + " " + start.idx)
     while ((start.idx <= last) && (content.length > start.idx)) {
         let word1 = getWord(content, start, last);
-        console.log("res" + word1)
 
         //This means that we need to move into +1 depth
         if (word1 === "{") {
@@ -71,7 +69,7 @@ function queryGen(schema: string, idx: Position): Schema {
         } else if (word1 === "}") {
             break;
         } else if (word1 === undefined) {
-            break
+            break;
         } else {
             //leaf node
             retv.currentField.add(word1);
